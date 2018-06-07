@@ -15,41 +15,8 @@ namespace ASP.NET_MVC_Application.Controllers
     [Authorize]
     public class LoginController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager   _userManager;
-
         public LoginController()
         {
-        }
-
-        public LoginController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
         }
 
         //
@@ -75,7 +42,7 @@ namespace ASP.NET_MVC_Application.Controllers
 
             // Esto no cuenta la cantidad de logins fallidos para bloquear la cuenta
             // Para habilitar el conteo de fallos de login para bloquear la cuenta, cambiar shouldLockout a true
-            var result = await SignInManager.PasswordSignInAsync(model.Usuario, model.Contraseña, model.Recordar, shouldLockout: false);
+            var result = SignInStatus.Success; // await SignInManager.PasswordSignInAsync(model.Usuario, model.Contraseña, model.Recordar, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -104,17 +71,6 @@ namespace ASP.NET_MVC_Application.Controllers
         {
             if (disposing)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
             }
 
             base.Dispose(disposing);
