@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ASP.NET_MVC_Application.Models.Maestro>
+
+@{
+    ViewBag.Title = "Maestro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>La siguiente tabla lista el detalle del Maestro</h3>
+<p>Encontrará su detalle, así como otros enlaces necesarios para editar y eliminar los registros. </p>
+
+<p>También puede crear un nuevo registro <a href="~/Maestro/Create">aquí</a>. </p>
+
+<table class="Maestros-table">
+    <tr>
+        <th>ID</th>
+        <th>Denominación</th>
+        <th>Detalle</th>
+        <th>Válido</th>
+        <th>Acciones</th>
+    </tr>
+
+    @if(Model != null && Model.Count() > 0)
+    {
+        foreach (var Maestro in Model)
+        {
+           // Crea la lista de maestros
+            <tr>
+                <td>@Maestro.ID</td>
+                <td>@Maestro.Denominacion</td>
+                <td>@Maestro.Detalle</td>
+                <td>@Maestro.Valido</td>
+                <td>
+                    <a href="~/Maestro/Update/@Maestro.ID">Editar</a>
+                    <a href="~/Maestro/Delete/@Maestro.ID">Eliminar</a>
+                </td>
+            </tr> 
+        }
+    }
+</table>

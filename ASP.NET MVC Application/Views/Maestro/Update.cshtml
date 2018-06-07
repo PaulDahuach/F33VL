@@ -1,0 +1,33 @@
+﻿@model ASP.NET_MVC_Application.Models.Maestro
+
+@{
+    ViewBag.Title = "Editar registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <h3>Puede actualizar los datos en el siguiente formulario</h3>
+</div>
+<form method="post" style="margin: 5% 0 0">
+    <div class="float-left">
+        <p>Denominación</p>
+        <p>Detalle</p>
+        <p>Válido</p>
+    </div>
+    <div class="float-right">
+        <input type="text" style="margin: 1px 0 2px" name="denominacion" value="@Model.Denominacion" /><br />
+        <input type="text" style="margin: 1px 0 2px" name="detalle" value="@Model.Detalle" /><br />
+        <input type="checkbox" style="margin: 1px 0 2px" name="valido" @if (Model.Valido) { <text>checked="checked"</text> } />
+        <br />
+        <input type="submit" value="Save" />
+    </div>
+</form>
+
+<p>
+    @if (ViewBag.Submitted != null && ViewBag.Submitted)
+    {
+        // Si el formulario fue enviado...
+        @ViewBag.Message
+    }
+</p>

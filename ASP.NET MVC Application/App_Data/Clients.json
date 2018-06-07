@@ -1,0 +1,5 @@
+[
+{"ID":1,"Name":"Juan Perez","Address":"Calle 1 123","Trusted":false},
+{"ID":2,"Name":"Pedro Gonzalez","Address":"Calle 2 123","Trusted":true},
+{"ID":3,"Name":"Maria Robledou","Address":"Calle 3 123","Trusted":false}
+]
