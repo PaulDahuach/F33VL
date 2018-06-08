@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0041)http://intranet.osde/home/instantaneo.asp -->
+<HTML><HEAD><META content="IE=5.0000" http-equiv="X-UA-Compatible">
+
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content="30; url=instantaneo.asp" http-equiv=refresh>
+<SCRIPT language=JavaScript type=text/javascript>
+<!--
+
+	function popUp(URL, top, left, anterior)
+	{
+    if(parent.topBox  == undefined || parent.topBox > 390)
+    {
+      parent.topBox = 150;
+    }
+    else {
+      parent.topBox = parent.topBox + 30;
+    }
+
+    if(parent.leftBox  == undefined || parent.leftBox > 440)
+    {
+      parent.leftBox = 200;
+    }
+    else {
+      parent.leftBox = parent.leftBox + 30;
+    }
+
+    if(anterior === true)
+    {
+        alto = 350;
+        ancho = 450;
+    }
+    else {
+      alto = 350;
+      ancho = 675;
+    }
+
+		day = new Date();
+		id = day.getTime();
+		eval("page" + id + " = window.open(URL, '" + id + "', 'toolbars=0, scrollbars=1, location=0, statusbars=0, menubars=0, resizable=yes, width=675, height=350, left ="+parent.leftBox+", top = "+parent.topBox+"');");
+
+    var left = left + 30;
+    var top = top + 30;
+  }
+
+	function popUpMsg(URL)
+	{
+		//alert("Se va a abrir un mensaje instantaneo en popUpMsg");
+		day = new Date();
+		id = day.getTime();
+		eval("page" + id + " = window.open(URL, '" + id + "', 'toolbars=0, scrollbars=0, location=0, statusbars=0, menubars=0, resizable=yes, width=400, height=280, left = 100, top = 50');");
+	}
+
+	function actualizar()
+  {
+		document.inst.submit();
+	}
+//-->
+</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 11.00.10570.1001"></HEAD>
+<BODY onload=;>
+<FORM method=post name=inst action=instantaneo.asp><INPUT id=top type=hidden 
+name=top> <INPUT id=top type=hidden name=left> </FORM></BODY></HTML>

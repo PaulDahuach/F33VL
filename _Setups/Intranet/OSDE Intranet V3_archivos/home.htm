@@ -1,0 +1,1887 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0033)http://intranet.osde/IV3/home.asp -->
+<!-- include file = "../classes/logger.class.asp" --><HTML><HEAD><META 
+content="IE=5.0000" http-equiv="X-UA-Compatible">
+<TITLE>OSDE Intranet V3</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<SCRIPT language=JavaScript src="../misc/activex.js"></SCRIPT>
+
+<SCRIPT src="http://intranet.osde/IV3/javascript/common.js"></SCRIPT>
+
+<SCRIPT src="http://intranet.osde/IV3/javascript/jquery.js"></SCRIPT>
+
+<SCRIPT src="http://intranet.osde/IV3/javascript/jqueryUI.js"></SCRIPT>
+
+<SCRIPT>
+	//llamado al ajax para recuperar los banners de eventos
+	//el DIV contenedor de la respuesta se incluye en left_intranet.asp
+
+	$(window.frames["top"]).ready(function(){
+				$.ajax({
+					url: 'http://intranet.osde/eventos_invitaciones/framework/controller/controller.php?action=EventoAction&method=eventoFrontAjax&inv_usuario_username=19223&rand=' + Math.random(),
+					type:'get',
+					async:true,
+					success: function(data)
+					{
+						if (data.indexOf("<html") == -1)				
+							$("#bannerEventos").html(data);
+					}
+				,
+				failure: function(){ addError('No se pudo realizar la operación.'); }
+				});
+			})
+
+	var isIE = document.all && document.getElementById;
+
+	function abrirAdmin(pagina,ventana,atributos) {
+		var anchoVentana=screen.width-2;
+		var altoVentana=screen.height-75;
+		if (atributos.length==0)
+			window.open(pagina,ventana,'width='+ anchoVentana+',height=' + altoVentana + ',top=0,left=0,toolbars=no,scrollbars=yes,resizable=yes,status=yes,directories=no,location=no,toolbar=yes,menubar=no');
+		else
+			window.open(pagina,ventana,'width='+ anchoVentana+',height='+altoVentana+',top=0,left=0,'+atributos);
+	}
+
+	function showMisHerr() {
+	
+		var objects = document.getElementsByTagName('object');
+		for (var i=0; i<objects.length; i++) {
+			objects[i].style.visibility = 'hidden';
+		}
+	
+		var selects = document.getElementsByTagName('select');
+		for (var i=0; i<selects.length; i++) {
+			selects[i].style.visibility = 'hidden';
+		}
+
+		var h
+		if (isIE) {
+			h = document.body.clientHeight;
+			if (isIE) document.body.scroll = 'no';
+		} else {
+			h = window.innerHeight;
+		}
+
+		var w
+		if (isIE) {
+			w = document.body.clientWidth;
+		} else {
+			w = window.innerWidth;
+		}
+
+		document.getElementById('MisHerrShadow').style.display = '';
+		document.getElementById('MisHerrShadow').style.visibility = 'visible';
+		document.getElementById('MisHerrShadow').style.height = document.body.scrollHeight + 'px';
+
+		document.getElementById('MisHerrMiniShadow').style.display = '';
+		document.getElementById('MisHerrMiniShadow').style.visibility = 'visible';
+		document.getElementById('MisHerrMiniShadow').style.width = '600px';
+		document.getElementById('MisHerrMiniShadow').style.height = (h - 45) + 'px';
+		document.getElementById('MisHerrMiniShadow').style.left = (((w - 600) / 2) + 5) + 'px';
+		document.getElementById('MisHerrMiniShadow').style.top = ((45 / 2) + 5) + 'px';
+
+		document.getElementById('MisHerr').style.display = '';
+		document.getElementById('MisHerr').style.visibility = 'visible';
+		document.getElementById('MisHerr').style.width = '600px';
+		document.getElementById('MisHerr').style.height = (h - 45) + 'px';
+		document.getElementById('MisHerr').style.left = ((w - 600) / 2) + 'px';
+		document.getElementById('MisHerr').style.top = (45 / 2) + 'px';
+		document.getElementById('MisHerr').style.border = '1px solid #AAAAAA';
+
+		window.scroll(0, 0);
+
+	}
+
+	function hideMisHerr() {
+
+		var objects = document.getElementsByTagName('object');
+		for (var i=0; i<objects.length; i++) {
+			objects[i].style.visibility = 'visible';
+		}
+
+		var selects = document.getElementsByTagName('select');
+		for (var i=0; i<selects.length; i++) {
+			selects[i].style.visibility = 'visible';
+		}
+
+		document.getElementById('MisHerrShadow').style.display = 'none';
+		document.getElementById('MisHerrShadow').style.visibility = 'hidden';
+		document.getElementById('MisHerrMiniShadow').style.display = 'none';
+		document.getElementById('MisHerrMiniShadow').style.visibility = 'hidden';
+		document.getElementById('MisHerr').style.display = 'none';
+		document.getElementById('MisHerr').style.visibility = 'hidden';
+
+		document.getElementById('maxMin').src = './images/maximizar.gif';
+		frmMisHerr.smallImages();
+
+		if (isIE) document.body.scroll = 'auto';
+
+	}
+
+	var old_height;
+	function maxMinMisHerr() {
+
+		var w, h
+
+		if (isIE) {
+			w = document.body.clientWidth;
+			h = document.body.clientHeight;
+		} else {
+			w = window.innerWidth;
+			h = window.innerHeight;
+		}
+
+		if (document.getElementById('MisHerr').style.width == '600px') {
+
+			document.getElementById('maxMin').src = './images/minimizar.gif';
+
+			old_height = document.getElementById('MisHerr').style.height;
+
+			document.getElementById('MisHerrMiniShadow').style.width = w + 'px';
+			document.getElementById('MisHerrMiniShadow').style.height = h + 'px';
+			document.getElementById('MisHerrMiniShadow').style.left = '0px';
+			document.getElementById('MisHerrMiniShadow').style.top = '0px';
+
+			document.getElementById('MisHerr').style.width = w + 'px';
+			document.getElementById('MisHerr').style.height = h + 'px';
+			document.getElementById('MisHerr').style.left = '0px';
+			document.getElementById('MisHerr').style.top = '0px';
+			document.getElementById('MisHerr').style.border = '0px';
+
+			frmMisHerr.bigImages();
+		} else {
+
+			document.getElementById('maxMin').src = './images/maximizar.gif';
+
+			document.getElementById('MisHerrMiniShadow').style.width = '600px';
+			document.getElementById('MisHerrMiniShadow').style.height = old_height;
+			document.getElementById('MisHerrMiniShadow').style.left = (((w - 600) / 2) + 5) + 'px';
+			document.getElementById('MisHerrMiniShadow').style.top = ((45 / 2) + 5) + 'px';
+
+			document.getElementById('MisHerr').style.width = '600px';
+			document.getElementById('MisHerr').style.height = old_height;
+			document.getElementById('MisHerr').style.left = ((w - 600) / 2) + 'px';
+			document.getElementById('MisHerr').style.top = (45 / 2) + 'px';
+			document.getElementById('MisHerr').style.border = '1px solid #AAAAAA';
+
+			frmMisHerr.smallImages();
+		}
+
+	}
+</SCRIPT>
+<LINK rel=stylesheet type=text/css href="home_archivos/intranetv2_1.css"><LINK 
+rel=stylesheet type=text/css href="home_archivos/jquery.css">
+<META name=GENERATOR content="MSHTML 11.00.10570.1001"></HEAD>
+<BODY onload="" leftMargin=0 topMargin=0>
+<DIV id=MisHerrShadow 
+style="HEIGHT: 100%; WIDTH: 100%; POSITION: absolute; LEFT: 0px; FILTER: alpha(opacity=75); Z-INDEX: 1000; DISPLAY: none; TOP: 0px; VISIBILITY: hidden; BACKGROUND-COLOR: #dddddd; opacity: .75; -moz-opacity: .75"></DIV>
+<DIV id=MisHerrMiniShadow 
+style="HEIGHT: 250px; WIDTH: 570px; POSITION: absolute; LEFT: 25px; FILTER: alpha(opacity=70); Z-INDEX: 1001; DISPLAY: none; TOP: 25px; VISIBILITY: hidden; BACKGROUND-COLOR: #bbbbbb; opacity: .70; -moz-opacity: .70"></DIV>
+<DIV id=MisHerr 
+style="BORDER-TOP: #aaaaaa 1px solid; HEIGHT: 250px; BORDER-RIGHT: #aaaaaa 1px solid; WIDTH: 570px; BORDER-BOTTOM: #aaaaaa 1px solid; POSITION: absolute; LEFT: 20px; BORDER-LEFT: #aaaaaa 1px solid; Z-INDEX: 1002; DISPLAY: none; TOP: 20px; VISIBILITY: hidden">
+<TABLE height="100%" cellSpacing=1 width="100%" bgColor=#ffffff border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE height="100%" cellSpacing=0 width="100%" bgColor=#ffffff 
+        border=0><TBODY>
+        <TR>
+          <TD class=titulo height=22 
+            background=home_archivos/fondo_comun.gif><IMG hspace=5 
+            src="home_archivos/bull_comun1.gif" height=10>MIS HERRAMIENTAS</TD>
+          <TD class=titulo height=22 background=home_archivos/fondo_comun.gif 
+          align=right><IMG onclick=maxMinMisHerr(); id=maxMin 
+            style="CURSOR: pointer" src="home_archivos/maximizar.gif" 
+            align=absMiddle><IMG onclick=hideMisHerr(); style="CURSOR: pointer" 
+            src="home_archivos/cerrar.gif" align=absMiddle></TD></TR>
+        <TR>
+          <TD height=10 background=home_archivos/separador1.gif 
+        colSpan=2></TD></TR>
+        <TR>
+          <TD style="BORDER-TOP: #cccccc 1px solid" colSpan=2><IFRAME 
+            id=frmMisHerr height="100%" src="home_archivos/MisHerramientas.htm" 
+            frameBorder=0 
+  width="100%"></IFRAME></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD height=5></TD></TR>
+  <TR>
+    <TD vAlign=top width=190 align=center>
+      <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD align=center>
+            <SCRIPT src="http://intranet.osde/IV3/javascript/menu.js"></SCRIPT>
+
+            <SCRIPT language=JavaScript>
+function redirectLink(sLink) {
+	window.location = sLink;
+}
+</SCRIPT>
+            <LINK rel=stylesheet type=text/css href="home_archivos/menu.css"><![if !IE]>
+<link href="http://intranet.osde/IV3/stylesheets/menu-notie.css" rel="stylesheet" type="text/css">
+<![endif]>
+            <TABLE id=menu class=menu_intranet cellSpacing=0 cellPadding=0 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD height=25 colSpan=2><IMG 
+                  src="home_archivos/titulo_mi_intranet.jpg"></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_usuario align=left>
+                <TD height=20 vAlign=middle colSpan=2 align=center>PAUL 
+                  EDUARDO DAHUACH</TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR>
+                <TD bgColor=#a0c1d2 height=1 colSpan=2></TD></TR>
+              <TR>
+                <TD height=1></TD></TR><!--tr class="item_menu_intranet" onmouseover="setHighlight(this);" onmouseout="resetHighlight(this,'item_menu_intranet')" -->
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG 
+                  src="home_archivos/bull_item_menu_portal.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/navegador/hit.asp?m=17967">Mi 
+                  Port@l :: Entre OSDE y yo</A></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG 
+                  src="home_archivos/bull_item_menu_portal.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/navegador/hit.asp?m=18280">Mis 
+                  consumos</A></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/listado/usuario_mod.asp">Datos 
+                  Personales</A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/navegador/hit.asp?m=15386">Carga/actualización 
+                  de CV</A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/listado/mivisu.asp">Agenda 
+                  Personal</A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/IV3/hit.asp?codMod=COMU&amp;pagina=%2E%2E%2FNormaInterna%2FVisualizador%2Easp%3Fmodulo%3D008">Comunicados</A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG 
+src="home_archivos/bull_item_menu_on.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/foro/visualizador.asp">Foros</A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif>
+                  <UL id=nav>
+                    <LI id=item>Últimos Accesos
+                    <UL>
+                      <LI><! -- TEST --><A 
+                      title="Información de la filial Pergamino" 
+                      class=item_menu_intranet_submenu 
+                      href="http://intranet.osde/IV3/hit.asp?modulo=15958&amp;pagina=%2E%2E%2Fespecialidadesmedicas%2FingresoPergamino%2Easp">Información 
+                      de Filial Pergamino</A> </LI></UL></LI></UL></TD></TR>
+              <TR>
+                <TD height=1 
+              background=home_archivos/fondo_item_menu.gif></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/buscadorv2.1/favoritos.asp">Mis 
+                  Favoritos</A></TD></TR>
+              <TR>
+                <TD height=1 
+              background=home_archivos/fondo_item_menu.gif></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/iv3/hit.asp?m=17377">Histórico de 
+                  Mensajes&nbsp;&nbsp;</A></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif>
+                  <TABLE class=menu_intranet cellSpacing=0 cellPadding=0 
+                  width="100%" align=left border=0>
+                    <TBODY>
+                    <TR class=item_menu_intranet>
+                      <TD width="80%"><A 
+                        href="http://intranet.osde/IV3/hit.asp?m=17403" 
+                        target=blank>Biblos</A> </TD>
+                      <TD align=right><A 
+                        href="http://intranet.osde/noticia/biblos.asp" 
+                        target=blank><IMG border=0 
+                        src="home_archivos/interrogacion.gif"></A> 
+                  </TD></TR></TBODY></TABLE></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="http://intranet.osde/iv3/hit.asp?m=17829">Gestión de la 
+                  Información </A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD vAlign=middle 
+                  background=home_archivos/fondo_item_menu.gif><A 
+                  href="javascript:showMisHerr();">Mis Herramientas</A></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR>
+                <TD height=1></TD></TR>
+              <TR class=item_menu_intranet>
+                <TD height=20 vAlign=middle 
+                background=home_archivos/fondo_item_menu.gif width=10 
+                align=center><IMG src="home_archivos/bull_item_menu.gif"></TD>
+                <TD background=home_archivos/fondo_item_menu.gif><A 
+                  href="javascript:redirectLink('hit.asp?m=15958');">Ingresar a 
+                  Mi Filial</A></TD></TR><!--	<tr class="item_menu_intranet">
+		<td height="20" width="10" align="center" valign="middle"><img src="http://intranet.osde/IV3/images/bull_item_menu2.gif"/></td>
+		<td valign="middle"><a href="../iv3/hit.asp?m=16811">De Todos para Todos        <img  align="absmiddle" src="images/flecha_de_todos_p_todos.gif" alt="" width="12" height="10" border="0"></a></td>
+	</tr>--></TBODY></TABLE><BR><A 
+            href="http://intranet.osde/iv3/hit.asp?m=16041"><IMG border=0 alt="" 
+            src="home_archivos/banner_de_todos_para_todos3.gif" width=143 
+            height=60></A> <!-- APLICACIONES: Ultimas aplicaciones ingresadas por el usuario -->
+            <SCRIPT>
+	activateMenuMouseOver('nav');
+</SCRIPT>
+          </TD></TR>
+        <TR>
+          <TD height=10></TD></TR>
+        <TR>
+          <TD>
+            <DIV id=bannerEventos style="TEXT-ALIGN: center"></DIV></TD></TR>
+        <TR>
+          <TD height=10></TD></TR>
+        <TR>
+          <TD align=center>
+            <SCRIPT language=javascript>
+			/*function _do_onLoad()
+			{
+				window.close();
+			}*/
+			//alert('NO ESTA');
+			
+		</SCRIPT>
+<!--div id="divBannerTodaviaSWF">	
+			<script language="Javascript">
+				LoadActiveX('divBannerTodaviaSWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="143" height="60"><param name=movie value="media/todavia21.swf"><param name=quality value=high><embed src="media/todavia20.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="143" height="60"></embed></object>');
+			</script>
+		</div--><!--		<a href="http://revistatodavia.intranet.osde" target="_blank"><img src="images/todavia18.gif" border="0"></a>--></TD></TR><!--<div id="divBannerPremioSWF">
+			<script language="Javascript">
+				LoadActiveX('divBannerPremioSWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="120" height="60"><param name=movie value="media/IMAGO.swf"><param name=quality value=high><embed src="media/IMAGO.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="120" height="60"></embed></object>');
+			</script>
+		</div>--><!--		<tr>
+		<td height="10"></td>	
+	</tr>
+	<tr>
+		<td align="center">
+		<div id="divBannerMercosurSWF">	
+			<script language="Javascript">
+				LoadActiveX('divBannerMercosurSWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="120" height="60"><param name=movie value="media/banner_7encuentro.swf"><param name=quality value=high><embed src="media/banner_7encuentro.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="120" height="60"></embed></object>');
+			</script>
+		</div>
+	</td></tr>
+	<tr>
+		<td height="10"></td>	
+	</tr>--><!--	<tr>
+		<td align="center">
+		<div id="divBannerNEASWF">	
+			<script language="Javascript">
+				LoadActiveX('divBannerNEASWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="120" height="60"><param name=movie value="media/neabanner_intra.swf"><param name=quality value=high><embed src="media/neabanner_intra.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="120" height="60"></embed></object>');
+			</script>
+		</div>
+	</td></tr>-->
+        <TR>
+          <TD height=10></TD></TR>
+        <TR>
+          <TD height=10></TD></TR>
+        <TR>
+          <TD align=center>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD class=titulo_destacado2 height=25 
+                background=home_archivos/fondo_indicador.gif width=20><IMG 
+                  hspace=5 vspace=2 src="home_archivos/bull_buscador.gif"></TD>
+                <TD class=titulo_destacado2 
+                background=home_archivos/fondo_indicador.gif width=145><A 
+                  class=titulo_destacado2 
+                  href="http://intranet.osde/IV3/indicador_detalle.asp?indicador=2">Ventas 
+                  Netas OSDE</A></TD></TR>
+              <TR class=fondo_txt_destacado2>
+                <TD height=26 colSpan=2 align=center><A 
+                  href="http://intranet.osde/IV3/indicador_detalle.asp?indicador=2">
+                  <DIV id=divIndicador2SWF>
+                  <SCRIPT language=Javascript>
+					LoadActiveX('divIndicador2SWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"  codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="165" height="89" id=ShockwaveFlash1><param name="movie" value="media/indicadores/barras_chico.swf?strURL=indicador_detalle.asp?indicador=2&strTitulo=Ventas+Netas+OSDE&strTituloX=Ultimos+13+meses&strTituloY=Altas+netas&strDatos=1111,5465,1879,1475,2826,2150,1890,2011,3603,%2D113,1048,530,594&strCategorias=Abril+2017,Mayo+2017,Junio+2017,Julio+2017,Agosto+2017,Septiembre+2017,Octubre+2017,Noviembre+2017,Diciembre+2017,Enero+2018,Febrero+2018,Marzo+2018,Abril+2018&blnOK=true"><param name="quality" value="high"><embed src="media/indicadores/barras_chico.swf?strURL=indicador_detalle.asp?indicador=2&strTitulo=Ventas+Netas+OSDE&strTituloX=Ultimos+13+meses&strTituloY=Altas+netas&strDatos=1111,5465,1879,1475,2826,2150,1890,2011,3603,%2D113,1048,530,594&strCategorias=Abril+2017,Mayo+2017,Junio+2017,Julio+2017,Agosto+2017,Septiembre+2017,Octubre+2017,Noviembre+2017,Diciembre+2017,Enero+2018,Febrero+2018,Marzo+2018,Abril+2018&blnOK=true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="165" height="89"></embed></object>');
+				</SCRIPT>
+                  </DIV></A></TD></TR>
+              <TR>
+                <TD height=10 colSpan=2></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD align=center></TD></TR>
+        <TR>
+          <TD height=5></TD></TR>
+        <TR>
+          <TD height="100%" align=center><!-- include file="addin_banner.asp" -->
+            <TABLE class=fondo_blank height="100%" cellSpacing=0 cellPadding=0 
+            width="100%"><!--tr>
+		  	<td height="3" background="http://intranet.osde/IV3/images/top_blank.gif"></td>
+		  </tr-->
+              <TBODY>
+              <TR>
+                <TD height="100%"></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
+    <TD width=5></TD>
+    <TD id=principal height="100%" vAlign=top>
+      <SCRIPT language=javascript type=text/javascript>
+<!--
+	function abrirVentanaOI(url) {
+		window.open(url,"new","top=150,left=250,width=530,height=180,fullscreen=no,toolbar=no, status=no, resizable=no, copyhistory=no,scrollbars=no");
+	}
+//-->
+</SCRIPT>
+
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD background=home_archivos/left_columna.gif></TD>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD class=titulo height=24 
+                background=home_archivos/fondo_filiales.gif width="3%"><IMG 
+                  hspace=5 src="home_archivos/bull_buscador.gif"></TD>
+                <TD class=titulo_destacado2 
+                background=home_archivos/fondo_filiales.gif width="82%">OSDE 
+                  INFORMA</TD>
+                <TD vAlign=bottom background=home_archivos/fondo_filiales.gif 
+                width="15%" align=right><A 
+                  href="javascript: abrirVentanaOI('osdeInforma.asp');"><IMG 
+                  border=0 src="home_archivos/interrogacion_CELESTE.gif"></A> <!-- <a href="../noticia/noticias.asp?home=true&tapa=true"><img src="http://intranet.osde/IV3/images/ver_noticias.gif" width="48" height="13" hspace="5" border="0"></a> --></TD></TR>
+              <TR>
+                <TD height=1 colSpan=3></TD></TR>
+              <TR>
+                <TD colSpan=3><!-- <script type="text/javascript" src="../misc/overlib/overlib.js"></script>
+<script type="text/javascript" src="../misc/overlib/overlib_hideform.js"></script> --><!--table width="100%" height="1" cellpadding="0" cellspacing="0" border="0">
+	<tr valign="top" align="right" valign="top">
+		<td><a href="#" class="txt_empresa" style="text-decoration:none;" onMouseOver="return overlib('<table border=\'0\' class=\'tablaOverlib\' cellpadding=\'5\' cellspacing=\'0\' width=\'100%\'><tr><td>Para la publicación de noticias de alcance nacional puede comunicarse a través del mail a analisis_informacion@osde.com.ar o telefónicamente con:</td></tr><tr><td>Mariana Badaracco 4510 5848<br>Mariana Ponce 4510 5849<br>Karina Roca 4510 5534<br>Domingo Tavarone 4590 4818</td></tr><tr><td>Análsis de la Información - Gerencia de Comunicación y Publicidad </td></tr></table>',  WIDTH, 350, HAUTO)" onMouseOut="nd()"><u>Referente de Noticias</u></a>&nbsp;&nbsp;</td>
+	</tr>
+	</table-->
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                  bgColor=#fafafa border=0>
+                    <TBODY>
+                    <TR>
+                      <TD>
+                        <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD height=5></TD></TR>
+                          <TR>
+                            <TD width=10></TD>
+                            <TD width=140><A 
+                              href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16722" 
+                              target=home><IMG id=ImgTapa border=0 
+                              src="home_archivos/resized_diamundialsintabacoplacaintranet02_31052018144621.jpg"> 
+                              </A></TD>
+                            <TD>
+                              <TABLE class=txt_noticias cellSpacing=0 
+                              cellPadding=0 width="100%" border=0>
+                                <TBODY>
+                                <TR>
+                                <TD><A class=txt_noticias 
+                                href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16722" 
+                                target=home></A></TD>
+                                <TD><A class=txt_noticias 
+                                href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16722" 
+                                target=home><B>31 de MAYO</B></A></TD></TR>
+                                <TR>
+                                <TD height=2 colSpan=2></TD></TR>
+                                <TR>
+                                <TD>&nbsp;</TD>
+                                <TD><A class=txt_noticias 
+                                href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16722" 
+                                target=home>Día internacional sin 
+                                tabaco</A></TD></TR></TBODY></TABLE></TD></TR>
+                          <TR>
+                            <TD 
+                  height=5></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD height=5 colSpan=2></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD height=15 width=10><SPAN 
+                        class=bullet1>&nbsp;&nbsp;•&nbsp;&nbsp;</SPAN></TD>
+                      <TD colSpan=2><A title=17/05/18 class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16717" 
+                        target=home><B>En defensa propia de Enrique Jezik y 3 
+                        muestras más en el Espacio de Arte</B></A></TD></TR>
+                    <TR>
+                      <TD height=15 width=10><SPAN 
+                        class=bullet1>&nbsp;&nbsp;•&nbsp;&nbsp;</SPAN></TD>
+                      <TD colSpan=2><A title=16/05/18 class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16715" 
+                        target=home><B>Conocé el nuevo Gmail</B></A></TD></TR>
+                    <TR>
+                      <TD height=15 width=10><SPAN 
+                        class=bullet1>&nbsp;&nbsp;•&nbsp;&nbsp;</SPAN></TD>
+                      <TD colSpan=2><A title=14/05/18 class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16714" 
+                        target=home><B>Abierto OSDE del Centro 2018 | Mirá el 
+                        video resumen</B></A></TD></TR>
+                    <TR>
+                      <TD height=15 width=10><SPAN 
+                        class=bullet1>&nbsp;&nbsp;•&nbsp;&nbsp;</SPAN></TD>
+                      <TD colSpan=2><A title=23/04/18 class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16707" 
+                        target=home><B>OSDE Líder en Salud y entre las primeras 
+                        20 empresas con mejor reputación del país</B></A></TD></TR>
+                    <TR>
+                      <TD height=15 width=10><SPAN 
+                        class=bullet1>&nbsp;&nbsp;•&nbsp;&nbsp;</SPAN></TD>
+                      <TD colSpan=2><A title=12/04/18 class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16704" 
+                        target=home><B>Filial Salta se mudó</B></A></TD></TR>
+                    <TR>
+                      <TD height=15 width=10><SPAN 
+                        class=bullet1>&nbsp;&nbsp;•&nbsp;&nbsp;</SPAN></TD>
+                      <TD colSpan=2><A title=06/04/18 class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16702" 
+                        target=home><B>Binaria Vida en el TOP TEN del ranking de 
+                        aseguradoras</B></A></TD></TR>
+                    <TR>
+                      <TD height=5 colSpan=3></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD height=5 colSpan=2></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD class=titulo height=15 
+                      background=home_archivos/fondo_comun2.gif 
+                        width="3%"><IMG hspace=5 
+                        src="home_archivos/bull_buscador.gif"></TD>
+                      <TD class=titulo_destacado2 style="FONT-SIZE: 7.5pt" 
+                      background=home_archivos/fondo_comun2.gif 
+                        width="82%">COMUNICACION INTERNA</TD>
+                      <TD vAlign=middle 
+                      background=home_archivos/fondo_comun2.gif width="15%" 
+                      align=right><A 
+                        href="http://intranet.osde/noticia/noticias.asp?categ=695&amp;Modulo=002"><IMG 
+                        border=0 hspace=5 src="home_archivos/ver_noticias.gif" 
+                        width=48 height=13></A></TD></TR>
+                    <TR>
+                      <TD height=8 colSpan=3></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD height=15 width=10></TD>
+                      <TD vAlign=top width=28><A class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16721" 
+                        target=home><SPAN class=fecha_comun>30/05/18</SPAN><SPAN 
+                        class=bullet1>&nbsp;•&nbsp;</SPAN></A></TD>
+                      <TD vAlign=top><A title="" class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16721" 
+                        target=home>Probá los mensajes instantáneos de la 
+                        Intranet en su versión rediseñada y mejorada</A></TD></TR>
+                    <TR>
+                      <TD height=5 colSpan=3></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD height=5 colSpan=2></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD class=titulo height=15 
+                      background=home_archivos/fondo_comun2.gif 
+                        width="3%"><IMG hspace=5 
+                        src="home_archivos/bull_buscador.gif"></TD>
+                      <TD class=titulo_destacado2 style="FONT-SIZE: 7.5pt" 
+                      background=home_archivos/fondo_comun2.gif 
+                        width="82%">NOTICIAS NACIONALES</TD>
+                      <TD vAlign=middle 
+                      background=home_archivos/fondo_comun2.gif width="15%" 
+                      align=right><A 
+                        href="http://intranet.osde/noticia/noticias.asp?home=true&amp;tapa=true"><IMG 
+                        border=0 hspace=5 src="home_archivos/ver_noticias.gif" 
+                        width=48 height=13></A></TD></TR>
+                    <TR>
+                      <TD height=8 colSpan=3></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD height=15 width=10></TD>
+                      <TD vAlign=top width=28><A class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16725" 
+                        target=home><SPAN class=fecha_comun>05/06/18</SPAN><SPAN 
+                        class=bullet1>&nbsp;•&nbsp;</SPAN></A></TD>
+                      <TD vAlign=top><A title="" class=txt_noticias 
+                        href="http://intranet.osde/noticia/VisNoticia.asp?Nroid=16725" 
+                        target=home>Cómo la alimentación influye en nuestra 
+                        memoria - Charla abierta a la comunidad, el 13 de junio 
+                        en Fundación PROSAM<IMG border=0 
+                        src="home_archivos/new.gif"></A></TD></TR>
+                    <TR>
+                      <TD height=5 colSpan=3></TD></TR></TBODY></TABLE>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD class=titulo height=15 
+                      background=home_archivos/fondo_comun2.gif 
+                        width="3%"><IMG hspace=5 
+                        src="home_archivos/bull_buscador.gif"></TD>
+                      <TD class=titulo_destacado2 style="FONT-SIZE: 7.5pt" 
+                      background=home_archivos/fondo_comun2.gif 
+                        width="82%">NOTICIAS DE FILIALES</TD>
+                      <TD class=titulo_destacado2 vAlign=middle 
+                      background=home_archivos/fondo_comun2.gif width="15%" 
+                      align=right><SPAN onclick=lastGroup(); id=btnLastGroup 
+                        style="CURSOR: pointer" name="image">‹‹‹</SPAN><!--<input name="image" type="image" id="btnLastGroup" onClick="lastGroup();" src="http://intranet.osde/IV3/images/bot_scroll_up.gif">--> 
+                        <SPAN onclick=nextGroup(); id=btnNextGroup 
+                        style="CURSOR: pointer" name="image2">›››</SPAN><!--<input name="image2" type="image" id="btnNextGroup" onClick="nextGroup();" src="http://intranet.osde/IV3/images/bot_scroll_down.gif">--> 
+                        &nbsp;&nbsp; </TD></TR>
+                    <TR>
+                      <TD height=8 colSpan=3></TD></TR>
+                    <TR>
+                      <TD colSpan=3>
+                        <DIV id=divNoticiasOtrasFilialesContainer 
+                        style="OVERFLOW: hidden; HEIGHT: 150px">
+                        <DIV id=divNoticiasOtrasFilialesContent 
+                        style="POSITION: relative; LEFT: 0px; TOP: 0px">
+                        <TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                          <TBODY>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19445" 
+                              target=home><SPAN 
+                              class=fecha_comun>06/06/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19445" 
+                              target=home><B>San Luis</B> - 
+                          Agradecimiento</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19444" 
+                              target=home><SPAN 
+                              class=fecha_comun>05/06/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19444" 
+                              target=home><B>Chivilcoy</B> - Lic.Osorio - 
+                              Bullying y ciberbullying en Chivilcoy</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19443" 
+                              target=home><SPAN 
+                              class=fecha_comun>05/06/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19443" 
+                              target=home><B>San Juan</B> - Más de 260 personas 
+                              participan de jornadas</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19442" 
+                              target=home><SPAN 
+                              class=fecha_comun>01/06/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19442" 
+                              target=home><B>Norpatagónica</B> - Campaña 
+                              concientización Hipertensión Arterial</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19441" 
+                              target=home><SPAN 
+                              class=fecha_comun>31/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19441" 
+                              target=home><B>La Plata</B> - Lopez Rosetti en 
+                              Fundación OSDE. Filial La Plata</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19440" 
+                              target=home><SPAN 
+                              class=fecha_comun>31/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19440" 
+                              target=home><B>Del Paraná</B> - Paraná DICE 2018 - 
+                              Fundación OSDE</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19439" 
+                              target=home><SPAN 
+                              class=fecha_comun>31/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19439" 
+                              target=home><B>Norpatagónica</B> - Donación a 
+                              Hospital Campo Grande (RN)</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19438" 
+                              target=home><SPAN 
+                              class=fecha_comun>31/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19438" 
+                              target=home><B>La Rioja</B> - Charla sobre cómo 
+                              aplicar a convocatorias artísticas</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19437" 
+                              target=home><SPAN 
+                              class=fecha_comun>28/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19437" 
+                              target=home><B>Junin</B> - Junín- Conferencia “ 
+                              Los siete diagnósticos neurooftalmológicos que 
+                              ningún médico puede dejar de conocer”. Dr. Juan 
+                              Carlos de Pedro.</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19436" 
+                              target=home><SPAN 
+                              class=fecha_comun>28/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19436" 
+                              target=home><B>Junin</B> - Junín- Salto. 
+                              Conferencia sobre Prevención de Enfermedades de 
+                              Alto Impacto Social : Adicciones y Alimentación 
+                              Saludable </A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19435" 
+                              target=home><SPAN 
+                              class=fecha_comun>28/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19435" 
+                              target=home><B>Comodoro Rivadavia</B> - 
+                              Donación</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19434" 
+                              target=home><SPAN 
+                              class=fecha_comun>28/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19434" 
+                              target=home><B>Junin</B> - Conferencia Lic. Arturo 
+                              Claria “ Padres Sólidos en una Sociedad Liquida”- 
+                              Filial Junín- Los Toldos.</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19433" 
+                              target=home><SPAN 
+                              class=fecha_comun>28/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19433" 
+                              target=home><B>Junin</B> - Conferencia Lic. Arturo 
+                              Claria “ Padres Sólidos en una Sociedad Liquida”- 
+                              Filial Junín- Lincoln.</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19431" 
+                              target=home><SPAN 
+                              class=fecha_comun>24/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19431" 
+                              target=home><B>Chivilcoy</B> - "El bullying 
+                              nuestro de cada día..." Lic Cosentino</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19430" 
+                              target=home><SPAN 
+                              class=fecha_comun>24/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19430" 
+                              target=home><B>Chivilcoy</B> - Pablo Heining en 
+                              Lujan</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19428" 
+                              target=home><SPAN 
+                              class=fecha_comun>22/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19428" 
+                              target=home><B>Santa Cruz</B> - Fernando Osorio en 
+                              Río Gallegos</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19427" 
+                              target=home><SPAN 
+                              class=fecha_comun>21/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19427" 
+                              target=home><B>La Plata</B> - Fundación OSDE:El 
+                              Arte de Percibir lo Valioso. APRECIATIVIDAD. Laura 
+                              Isanta</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19426" 
+                              target=home><SPAN 
+                              class=fecha_comun>18/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19426" 
+                              target=home><B>Catamarca</B> - Daniel Hourcade en 
+                              Catamarca - LIDERAZGO Y TRABAJO EN 
+EQUIPO</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19424" 
+                              target=home><SPAN 
+                              class=fecha_comun>16/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19424" 
+                              target=home><B>Bariloche</B> - 11° Festival 
+                              Internacional de Títeres</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19423" 
+                              target=home><SPAN 
+                              class=fecha_comun>16/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19423" 
+                              target=home><B>La Pampa</B> - Publicación de la 
+                              Charla: Seguridad en Internet</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19422" 
+                              target=home><SPAN 
+                              class=fecha_comun>16/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19422" 
+                              target=home><B>Comodoro Rivadavia</B> - 5to. 
+                              Congreso Patagónico de Ortopedia y 
+                              Traumatología</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19421" 
+                              target=home><SPAN 
+                              class=fecha_comun>15/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19421" 
+                              target=home><B>Buenos Aires Centro</B> - Campaña 
+                              de vacunación contra la gripe A</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19420" 
+                              target=home><SPAN 
+                              class=fecha_comun>14/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19420" 
+                              target=home><B>Catamarca</B> - RESPONSABILIDAD 
+                              SOCIAL EN LA ESCUELA</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19419" 
+                              target=home><SPAN 
+                              class=fecha_comun>14/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19419" 
+                              target=home><B>Santa Fe</B> - Rugby Copa OSDE - 
+                              Clásico Santa Fe Rugby vs Crai</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19418" 
+                              target=home><SPAN 
+                              class=fecha_comun>14/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19418" 
+                              target=home><B>Junin</B> - Gran Premio Copa OSDE. 
+                              General Villegas.</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19417" 
+                              target=home><SPAN 
+                              class=fecha_comun>14/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19417" 
+                              target=home><B>Chivilcoy</B> - Agradecimiento de 
+                              Socio en Luján</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19416" 
+                              target=home><SPAN 
+                              class=fecha_comun>11/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19416" 
+                              target=home><B>La Pampa</B> - Seguridad en 
+                              Internet - Por Fernando Teruel</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19415" 
+                              target=home><SPAN 
+                              class=fecha_comun>11/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19415" 
+                              target=home><B>Trenque Lauquen</B> - Iniciando la 
+                              Vida Digital: Riesgos y cuidados a tener en 
+                              Cuenta</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19414" 
+                              target=home><SPAN 
+                              class=fecha_comun>11/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19414" 
+                              target=home><B>Corrientes</B> - ENCUENTRO NACIONAL 
+                              de MEDIACION en Filial Corrientes</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19413" 
+                              target=home><SPAN 
+                              class=fecha_comun>11/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19413" 
+                              target=home><B>Corrientes</B> - CHARLAS de 
+                              PREVENCION con el DR GERMAN FERNANDEZ</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19412" 
+                              target=home><SPAN 
+                              class=fecha_comun>08/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19412" 
+                              target=home><B>La Rioja</B> - Como todo acto de 
+                              violencia, el bullying es una conducta 
+                              aprendida</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19411" 
+                              target=home><SPAN 
+                              class=fecha_comun>04/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19411" 
+                              target=home><B>Chivilcoy</B> - Agradecimiento de 
+                              Socio en Luján</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19410" 
+                              target=home><SPAN 
+                              class=fecha_comun>03/05/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19410" 
+                              target=home><B>Rosario</B> - Encuentro con la 
+                              curadora de muestra Corazones solitarios</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19406" 
+                              target=home><SPAN 
+                              class=fecha_comun>26/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19406" 
+                              target=home><B>Junin</B> - Conferencia Lic. Arturo 
+                              Claria. Padres Sólidos en una Sociedad Líquida. 
+                              Capitán Sarmiento.</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19405" 
+                              target=home><SPAN 
+                              class=fecha_comun>26/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19405" 
+                              target=home><B>Junin</B> - Curso Asistente en el 
+                              Arte de Cuidar - Ameghino.</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19404" 
+                              target=home><SPAN 
+                              class=fecha_comun>26/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19404" 
+                              target=home><B>Tucumán</B> - ALCOHOLISMO</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19403" 
+                              target=home><SPAN 
+                              class=fecha_comun>25/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19403" 
+                              target=home><B>Santa Cruz</B> - Seguridad vial y 
+                              manejo defensivo</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19402" 
+                              target=home><SPAN 
+                              class=fecha_comun>25/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19402" 
+                              target=home><B>Catamarca</B> - Prevención 
+                              Odontologica en Jardines - Dra. Lilian 
+                            Cordoba</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19401" 
+                              target=home><SPAN 
+                              class=fecha_comun>24/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19401" 
+                              target=home><B>La Plata</B> - EL ADN DEL 
+                              BIENESTAR- jORNADAS DE INTEGRACION</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19400" 
+                              target=home><SPAN 
+                              class=fecha_comun>24/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19400" 
+                              target=home><B>Catamarca</B> - Charla ¿Ser se 
+                              puede hacer? - Lic. Cosentino</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19399" 
+                              target=home><SPAN 
+                              class=fecha_comun>23/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19399" 
+                              target=home><B>Chivilcoy</B> - Ciclo de 
+                              conversaciones...</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19397" 
+                              target=home><SPAN 
+                              class=fecha_comun>19/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19397" 
+                              target=home><B>Norpatagónica</B> - Cuidadores 
+                              Domiciliarios formados en valores</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19395" 
+                              target=home><SPAN 
+                              class=fecha_comun>11/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19395" 
+                              target=home><B>Chivilcoy</B> - ARQUITECTURA 
+                              SUSTENTABLE</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19393" 
+                              target=home><SPAN 
+                              class=fecha_comun>10/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19393" 
+                              target=home><B>Comodoro Rivadavia</B> - 67° Curso 
+                              Asistente en el Arte de Cuidar</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19392" 
+                              target=home><SPAN 
+                              class=fecha_comun>06/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19392" 
+                              target=home><B>Rosario</B> - Apertura de muestra 
+                              "Corazones solitarios"</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19391" 
+                              target=home><SPAN 
+                              class=fecha_comun>06/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19391" 
+                              target=home><B>Rosario</B> - Apertura de muestra 
+                              "Turista. Obras de Juan Balguer"</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19390" 
+                              target=home><SPAN 
+                              class=fecha_comun>06/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19390" 
+                              target=home><B>Rosario</B> - Taller de 
+                          RCP</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19389" 
+                              target=home><SPAN 
+                              class=fecha_comun>06/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19389" 
+                              target=home><B>Rosario</B> - 66° Curso de 
+                              Asistente en el Arte de Cuidar</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19388" 
+                              target=home><SPAN 
+                              class=fecha_comun>06/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19388" 
+                              target=home><B>Chivilcoy</B> - Conferencia: 
+                              Consumo problemático de sustancias</A></TD></TR>
+                          <TR>
+                            <TD width=12></TD>
+                            <TD height=20 vAlign=top width=25><A 
+                              class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19387" 
+                              target=home><SPAN 
+                              class=fecha_comun>05/04/18</SPAN><SPAN 
+                              class=bullet3>&nbsp;•&nbsp;</SPAN></A></TD>
+                            <TD vAlign=top><A class=txt_noticias 
+                              href="http://intranet.osde/noticia/VisNoticiaFilial.asp?iFN=19387" 
+                              target=home><B>Catamarca</B> - Charla Cuidado del 
+                              Cuerpo Dra. M. Eugenia 
+                        Escobar</A></TD></TR></TBODY></TABLE></DIV></DIV>
+                        <SCRIPT language=JavaScript>
+	// Internas
+	var bMoving = false;
+	var iBlock = 1;
+	var iDestinationTop;
+	var iDirectionAutoMovement = -1;
+	var iLastSchedule = -1;
+	var iStep;
+	var iNewsPerBlock;
+	var iNumBlocks;
+	
+	// Cantidad de noticias por bloque dependiendo de la resolucion
+	if (screen.width>800) iNewsPerBlock = 7;
+	else iNewsPerBlock = 7;
+	
+	// Step
+	iStep = iNewsPerBlock*20;
+	
+	// Cantidad de bloques
+	iNumBlocks = Math.floor(50 / iNewsPerBlock) + ((50 % iNewsPerBlock) == 0?0:1);
+	
+	// Muestro/oculto los botones si hay un solo bloque
+	if (iNumBlocks == 1)
+	{
+		window.document.getElementById('btnLastGroup').style.display = 'none';
+		window.document.getElementById('btnNextGroup').style.display = 'none';
+	}
+	
+	// Alto del contenedor segun la cantidad de noticias por bloque
+	window.document.getElementById('divNoticiasOtrasFilialesContainer').style.height = iStep;
+	
+	// Para modificar la velocidad del scrolling y el delay del movimiento automatico
+	var iSpeed = 2;
+	var iDelay = 20;
+	var iAutoDelay = 30000;
+	
+	// Funciones de uso interno
+	function scheduleNextAutomaticMovement()
+	{
+		if (iNumBlocks>1) iLastSchedule = setTimeout('nextAutoGroup();',iAutoDelay);
+	}
+	
+	function nextAutoGroup()
+	{
+		iLastSchedule = -1
+		// Solo me muevo si no me estoy moviendo
+		if (!bMoving)
+		{
+			// Tengo que cambiar de direccion?
+			if ((iDirectionAutoMovement==-1 && iBlock==iNumBlocks) ||
+				(iDirectionAutoMovement==1 && iBlock==1)) iDirectionAutoMovement *= -1;
+			// Me muevo viteh
+			moveTo(iDirectionAutoMovement,true);
+		}
+	}
+		
+	function nextGroup()
+	{
+		// Cancelo el ultimo movimiento automatico
+		if (iLastSchedule>-1) clearTimeout(iLastSchedule);
+		// Cambio la direccion del automatico para satisfacer al usuario
+		iDirectionAutoMovement = -1; // Pabajo viteh
+		// Mueva, mueva
+		if (!bMoving && iBlock<iNumBlocks) moveTo(-1,false);
+	}
+	
+	function lastGroup()
+	{
+		// Cancelo el ultimo movimiento automatico
+		if (iLastSchedule>-1) clearTimeout(iLastSchedule);
+		// Cambio la direccion del automatico para satisfacer al usuario
+		iDirectionAutoMovement = 1; // Parriba viteh
+		// Mueva, mueva
+		if (!bMoving && iBlock>1) moveTo(1,false);
+	}
+	
+	function moveTo(iDirection,bScheduleOnStop)
+	{
+		var divContent = window.document.getElementById('divNoticiasOtrasFilialesContent');
+		
+		if (!bMoving)
+		{
+			// No me estoy moviendo??? Pero voooo, so looco viteh
+			bMoving = true;
+			iDestinationTop = divContent.style.posTop + iDirection*iStep;
+		}
+		
+		if (bMoving)
+		{
+			// Me estoy moviendo? Me muevo mas
+			if (((divContent.style.posTop-iSpeed)<iDestinationTop && iDirection==-1) || 
+				((divContent.style.posTop+iSpeed)>iDestinationTop && iDirection==1))
+			{
+				// Estoy en el siguiente bloque
+				iBlock -= iDirection;
+				bMoving = false;
+				divContent.style.posTop = iDestinationTop;
+				// Muestro botones correspondientes (los que realmente puedo usar)
+				showHideDirectionButtons();
+				// Hago schedule
+				scheduleNextAutomaticMovement();
+			}
+			else
+			{
+				divContent.style.posTop += iSpeed*iDirection;
+				// Siguiente movimiento en 3, 2, 1... KABOOM!
+				setTimeout('moveTo('+iDirection+','+(bScheduleOnStop?'true':'false')+');',iDelay);
+			}
+		}
+	}
+	
+	function showHideDirectionButtons()
+	{
+		window.document.getElementById('btnLastGroup').style.visibility = iBlock==1?'hidden':'';
+		window.document.getElementById('btnNextGroup').style.visibility = iBlock==iNumBlocks?'hidden':'';
+	}
+	
+	// Muestro botones correspondientes (los que realmente puedo usar)
+	showHideDirectionButtons();
+	// Primer schedule
+	scheduleNextAutomaticMovement();
+</SCRIPT>
+                      </TD></TR>
+                    <TR>
+                      <TD height=3 
+            colSpan=3></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
+          <TD background=home_archivos/right_columna.gif></TD></TR>
+        <TR>
+          <TD background=home_archivos/left_bottom_corner.gif width=4></TD>
+          <TD height=2></TD>
+          <TD background=home_archivos/right_bottom_corner.gif width=4></TD></TR>
+        <TR>
+          <TD background=home_archivos/left_bottom_corner.gif width=4></TD>
+          <TD height=4 background=home_archivos/bottom_fila.gif></TD>
+          <TD background=home_archivos/right_bottom_corner.gif width=4></TD></TR>
+        <TR>
+          <TD height=7 colSpan=3></TD></TR></TBODY></TABLE>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD bgColor=#ffffff height=2></TD></TR></TBODY></TABLE><!--
+<table align="center" width="99%" height="100%" border="0" cellpadding="0" cellspacing="0" class="fondo_blank">
+	<tr>
+		<td height="3" background="http://intranet.osde/IV3/images/top_blank.gif"></td>
+	</tr>
+	<tr>
+		<td height="100%"></td>
+	</tr>
+</table>
+--></TD>
+    <TD width=5></TD>
+    <TD vAlign=top width=210>
+      <SCRIPT>
+function ordenarComboAlfabeticamente(cmb, inicio) {
+	var auxText;
+	var auxValue;
+
+	for (var i=inicio; i < cmb.options.length-1; i++) {
+
+		for (var j=i+1; j < cmb.options.length; j++) {
+
+			if (cmb.options[i].text > cmb.options[j].text) {
+				auxText = cmb.options[i].text;
+				auxValue = cmb.options[i].value;
+				cmb.options[i].text = cmb.options[j].text;
+				cmb.options[i].value = cmb.options[j].value;
+				cmb.options[j].text = auxText;
+				cmb.options[j].value = auxValue;
+				jdis = false;
+				if (cmb.options[i].disabled) jdis = true;
+				idis = false;
+				if (cmb.options[j].disabled) idis = true;
+
+				cmb.options[i].disabled = idis;
+				cmb.options[j].disabled = jdis;
+			}
+		}
+	}
+}
+</SCRIPT>
+
+      <TABLE height="100%" cellSpacing=0 cellPadding=0 width=220 border=0>
+        <TBODY>
+        <TR>
+          <TD align=center>
+            <SCRIPT language=JavaScript>
+	function validateBusqueda()
+	{
+		var sError = '';
+		// Que haya seleccionado el tipo de busqueda (contenido o personas)
+		if (!window.document.getElementById('iTipoBusqueda_C').checked && !window.document.getElementById('iTipoBusqueda_P').checked)
+		{
+			sError += 'Seleccione el tipo de búsqueda\n';
+		}
+		// Que haya ingresado palabras clave para la busqueda
+		if (window.document.getElementById('sBusqueda').value=='')
+		{
+			sError += 'Ingrese palabras clave para la búsqueda\n';
+		}
+		
+		if (sError!='')
+		{
+			alert(sError);
+			return false;
+		}
+		
+		// Si el tipo de busqueda es por persona, busco.
+		if (window.document.getElementById('iTipoBusqueda_P').checked)
+		{
+			// Cambio el actio, target del formulario y el nombre del campo de texto
+			window.document.getElementById('frmSearchContent').action = 'buscador_bifurcador.asp?ltel=on';
+			// Busco
+			return true;
+		}
+		
+		// TODO: implementar busqueda por contenido
+		if (window.document.getElementById('iTipoBusqueda_C').checked)
+		{
+			window.document.getElementById('frmSearchContent').action = 'buscador_bifurcador.asp?texto=' + window.document.getElementById('sBusqueda').value;
+			return true;
+		}
+	
+		return false;
+	}
+</SCRIPT>
+
+            <FORM id=frmSearchContent onsubmit="return validateBusqueda();" 
+            style="MARGIN: 0px" method=post name=frmSearchContent target=home>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#fdefd4 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD class=titulo_destacado2 height=24 
+                background=home_archivos/fondo_buscador.gif><IMG 
+                  style="PADDING-TOP: 3px" hspace=5 
+                  src="home_archivos/bull_buscador.gif">BUSCADOR</TD>
+                <TD vAlign=top rowSpan=2 width="18%"><IMG 
+                  src="home_archivos/buscador_lupa.gif"></TD></TR>
+              <TR>
+                <TD>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                      <TD width=25 align=right><INPUT id=iTipoBusqueda_C 
+                        class=input type=radio value=0 name=iTipoBusqueda></TD>
+                      <TD class=txt_comun>Contenidos</TD>
+                      <TD width=10><INPUT id=iTipoBusqueda_P class=input 
+                        CHECKED type=radio value=1 name=iTipoBusqueda></TD>
+                      <TD class=txt_comun>Personas</TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD height=25 vAlign=middle colSpan=2>&nbsp; <INPUT 
+                  id=sBusqueda size=18 name=sBusqueda> &nbsp; <INPUT 
+                  src="home_archivos/bot_buscar.gif" type=image 
+              name=image></TD></TR></TBODY></TABLE></FORM></TD></TR>
+        <TR>
+          <TD align=center>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD bgColor=#eee2ca height=1></TD></TR>
+              <TR>
+                <TD bgColor=#f4ecd9 height=1></TD></TR>
+              <TR>
+                <TD bgColor=#f9f2e0 height=1></TD></TR>
+              <TR>
+                <TD class=titulo_destacado6 bgColor=#fef8ec 
+                  height=20>&nbsp;Por Empresa </TD></TR>
+              <TR>
+                <TD align=center>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR bgColor=#fef8ec>
+                      <TD width=15></TD>
+                      <TD height=25>
+                        <TABLE class=txt_destacado cellSpacing=0 cellPadding=0 
+                        width="100%" border=0>
+                          <TBODY>
+                          <TR>
+                            <TD height=10><FONT color=#ff9900>•</FONT><A 
+                              class=txt_empresa style="TEXT-DECORATION: none" 
+                              href="http://intranet.osde/IV3/indice_buscador2.asp?iEmpresa=000100000000"> 
+                              Osde Binario </A></TD>
+                            <TD><FONT color=#ff9900>•</FONT><A 
+                              class=txt_empresa style="TEXT-DECORATION: none" 
+                              href="http://intranet.osde/IV3/estructura_sector.asp?iEmpresaOsde=3&amp;idCSector=41"> 
+                              Fundación</A></TD></TR>
+                          <TR>
+                            <TD height=10><FONT color=#ff9900>•</FONT><A 
+                              class=txt_empresa style="TEXT-DECORATION: none" 
+                              href="http://intranet.osde/IV3/hit.asp?m=15926"> 
+                              Interturis</A></TD>
+                            <TD><FONT color=#ff9900>•</FONT><A 
+                              class=txt_empresa style="TEXT-DECORATION: none" 
+                              href="http://intranet.osde/IV3/estructura_sector.asp?iEmpresaOsde=7&amp;idCSector=36"> 
+                              URG Urgencias</A></TD></TR>
+                          <TR>
+                            <TD height=5><FONT color=#ff9900>•</FONT><A 
+                              class=txt_empresa style="TEXT-DECORATION: none" 
+                              href="http://intranet.osde/IV3/estructura_sector.asp?iEmpresaOsde=2&amp;idCSector=31"> 
+                              Binaria</A></TD></TR>
+                          <TR>
+                            <TD height=5 colSpan=2></TD></TR></TBODY></TABLE></TD></TR>
+                    <TR>
+                      <TD height=1></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD bgColor=#f6e6c2 height=1></TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD align=center>
+            <SCRIPT language=JavaScript>
+function redirectLink(sLink) {
+	window.location = sLink;
+}
+</SCRIPT>
+
+            <SCRIPT src="http://intranet.osde/IV3/javascript/combo.js"></SCRIPT>
+
+            <FORM style="MARGIN: 0px" method=post name=frmContent>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD class=titulo_destacado6 bgColor=#fef8ec 
+                  height=20>&nbsp;Por Filial</TD></TR><!--tr>
+		<td height="1"></td>
+	  </tr-->
+              <TR>
+                <TD align=center>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR bgColor=#fef8ec>
+                      <TD width=5></TD>
+                      <TD height=23><SELECT onchange=redirectLink(this.value); 
+                        id=iFilialFilial name=iFilial> <OPTION selected 
+                          value=#>Seleccione una Filial</OPTION> <OPTION 
+                          value=hit.asp?m=15972>Bahía Blanca</OPTION><OPTION 
+                          value=hit.asp?m=16048>Bariloche</OPTION><OPTION 
+                          value=hit.asp?m=16029>Catamarca</OPTION><OPTION 
+                          value=hit.asp?m=16101>Chaco</OPTION><OPTION 
+                          value=hit.asp?m=16126>Chivilcoy</OPTION><OPTION 
+                          value=hit.asp?m=16047>Comodoro 
+                          Rivadavia</OPTION><OPTION 
+                          value=hit.asp?m=16084>Córdoba</OPTION><OPTION 
+                          value=hit.asp?m=16127>Villa María</OPTION><OPTION 
+                          value=hit.asp?m=15888>Corrientes</OPTION><OPTION 
+                          value=hit.asp?m=16067>Del Paraná</OPTION><OPTION 
+                          value=hit.asp?m=16018>Formosa</OPTION><OPTION 
+                          value=hit.asp?m=16031>Jujuy</OPTION><OPTION 
+                          value=hit.asp?m=15975>Junin</OPTION><OPTION 
+                          value=hit.asp?m=16043>La Pampa</OPTION><OPTION 
+                          value=hit.asp?m=15991>La Plata</OPTION><OPTION 
+                          value=hit.asp?m=16022>La Rioja</OPTION><OPTION 
+                          value=hit.asp?m=16033>Lobos</OPTION><OPTION 
+                          value=hit.asp?m=15976>Mar del Plata</OPTION><OPTION 
+                          value=hit.asp?m=16030>Mendoza</OPTION><OPTION 
+                          value=hit.asp?m=15898>Misiones</OPTION><OPTION 
+                          value=hit.asp?m=16115>Buenos Aires 
+                          Centro</OPTION><OPTION 
+                          value=hit.asp?m=15958>Pergamino</OPTION><OPTION 
+                          value=hit.asp?m=15992>Río Uruguay</OPTION><OPTION 
+                          value=hit.asp?m=16046>Rosario</OPTION><OPTION 
+                          value=hit.asp?m=16039>Salta</OPTION><OPTION 
+                          value=hit.asp?m=16044>San Juan</OPTION><OPTION 
+                          value=hit.asp?m=16088>San Luis</OPTION><OPTION 
+                          value=hit.asp?m=16059>Santa Cruz</OPTION><OPTION 
+                          value=hit.asp?m=15894>Santa Fe</OPTION><OPTION 
+                          value=hit.asp?m=16125>Sgo del Estero</OPTION><OPTION 
+                          value=hit.asp?m=16129>Tierra del Fuego</OPTION><OPTION 
+                          value=hit.asp?m=16045>Trelew</OPTION><OPTION 
+                          value=hit.asp?m=16114>Trenque Lauquen</OPTION><OPTION 
+                          value=hit.asp?m=16124>Tucumán</OPTION><OPTION 
+                          value=hit.asp?m=16128>Rio Cuarto</OPTION><OPTION 
+                          value=hit.asp?m=16042>Norpatagónica</OPTION></SELECT>&nbsp; 
+                      </TD></TR>
+                    <TR>
+                      <TD height=1></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD bgColor=#f6e6c2 height=1></TD></TR></TBODY></TABLE></FORM>
+            <SCRIPT>
+			ordenarComboAlfabeticamente(document.getElementById("iFilialFilial"), 2);
+			</SCRIPT>
+          </TD></TR>
+        <TR>
+          <TD align=center>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+              <TBODY>
+              <TR>
+                <TD bgColor=#fdefd4 height=20><A 
+                  href="http://intranet.osde/IV3/bifurcador.asp"><IMG border=0 
+                  alt="" src="home_archivos/banner_sectores_home.gif"></A></TD></TR><!--tr>
+		<td height="1"></td>
+	  </tr-->
+              <TR>
+                <TD align=center>
+                  <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR bgColor=#fef8ec>
+                      <TD width=5></TD>
+                      <TD height=23><SELECT onchange=redirectLink(this.value); 
+                        id=iFilialSector name=iFilial> <OPTION selected 
+                          value=#>Seleccione una Gerencia / Empresa</OPTION> 
+                          <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=33>Gcia. 
+                          de Promoción y Ventas</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=35>Gcia. 
+                          Médica de Gestión</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=43>Gcia. 
+                          Cobranzas</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=44>Gcia. 
+                          Administración</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=48>Gcia. 
+                          Asuntos Jurídicos</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=84>Gcia. 
+                          Médica de Prestaciones</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=5&amp;idCSector=118>Gcia. 
+                          de Mejora de Procesos</OPTION> <OPTION 
+                          value=hit.asp?m=18079>GS.- Videoconferencia</OPTION> 
+                          <OPTION 
+                          value=../IV3/estructura_sector.asp?iEmpresaOsde=3&amp;idCSector=41>Fundación 
+                          OSDE</OPTION> <OPTION 
+                          value=../IV3/sectores/capacit/home.php>Gcia. de 
+                          Desarrollo Humano</OPTION> <OPTION 
+                          value=../IV3/estructura_sector.asp?iEmpresaOsde=4&amp;idCSector=89>Gcia. 
+                          de Atención Personalizada</OPTION> <OPTION 
+                          value=http://gestionpublicidad.intranet.osde/homePage/controller/controller.php?action=PaginaPrincipalAction>Gcia. 
+                          de Relaciones Institucionales</OPTION> <OPTION 
+                          value=../IV3/sectores/relac/home.html>Gcia. Rel. 
+                          Académicas - RSE</OPTION> <OPTION 
+                          value=../iv3/sectores/auditoria/home.html>Gcia. 
+                          Auditoría Interna</OPTION> <OPTION 
+                          value=../IV3/hit.asp?m=17724>Gcia. de 
+                          Marketing</OPTION> <OPTION 
+                          value=../IV3/estructura_sector.asp?iEmpresaOsde=4&amp;idCSector=32>Gcia. 
+                          de Cultura e Innovación</OPTION> <OPTION 
+                          value=../IV3/hit.asp?m=18250>Dir. de Procesos y 
+                          Sistemas</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=2&amp;idCSector=31>Emp.- 
+                          Binaria Seguros</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=4&amp;idCSector=142>Emp.- 
+                          OSDE Binario -</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=6&amp;idCSector=37>Emp.- 
+                          Interturis</OPTION> <OPTION 
+                          value=estructura_sector.asp?iEmpresaOsde=7&amp;idCSector=36>Emp.- 
+                          URG Urgencias</OPTION></SELECT>&nbsp; </TD></TR>
+                    <TR>
+                      <TD height=1></TD></TR></TBODY></TABLE></TD></TR>
+              <TR>
+                <TD bgColor=#f6e6c2 height=1></TD></TR></TBODY></TABLE><!--table width="95%" cellpadding="0" cellspacing="0" border="0">
+	
+	<tr>
+		<td align="center">
+		  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              	<tr>
+					<td height="1"></td>
+				</tr>
+			  <tr bgcolor="F0F0F0">
+                <td width="15"></td>
+                <td height="25"><a href="bifurcador.asp" class="titulo" target="home"><img src="http://intranet.osde/IV3/images/banner_sectores_principal.gif" border="0"></a></td>
+			  </tr>
+			  <tr>
+					<td height="1"></td>
+			</tr>
+            </table>	
+		</td>	
+	</tr>
+	<tr>
+		<td background="http://intranet.osde/IV3/images/punteada_bottom.gif" height="2"></td>
+	</tr>
+</table-->
+            <SCRIPT>
+			ordenarComboAlfabeticamente(document.getElementById("iFilialSector"), 1);
+			</SCRIPT>
+          </TD></TR>
+        <TR>
+          <TD height=10></TD></TR><!--	<tr>
+		
+<!--		<td align="center">
+		<!-- include file="addin_banner.asp" <br>--><!--<a href="http://intrasite.osde/fundacion_osde/premio_argentino.asp" target="_blank"><img border="0" src="../adminV2.1/img/banners/banner_premio.gif"></a>--><!--		<div id="divBannerPremioSWF">
+			<!--<script language="Javascript">
+				LoadActiveX('divBannerPremioSWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="143" height="60"><param name=movie value="media/banner_premio.swf"><param name=quality value=high><embed src="media/banner_premio.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="143" height="60"></embed></object>');
+			</script>--><!--		<a href="http://intrasite.osde/fundacion_osde/premio_argentino.asp" target="_blank"><img border="0" width="143" height="60" src="../adminV2.1/img/banners/banner_premio.gif"></a>
+		</div>
+		</td>	
+	</tr>
+	<tr>
+		<td height="10"></td>	
+	</tr>--><!--	<tr>
+		<td align="center">
+		<!--<a href="http://revistatodavia.intranet.osde" target="_blank"><img src="../adminV2.1/img/banners/banner_todavia13.gif" alt="" width="143" height="60" border="0"></a>
+		</td>	
+	</tr>
+	<tr>
+		<td height="10"></td>	
+	</tr>-->
+        <TR>
+          <TD align=center>
+            <SCRIPT language=javascript>
+		function getSizeBanner (oBanner) {
+			oNewBanner = new Object();
+			oNewBanner.src = oBanner.src;
+			alert(oBanner.width+"x"+oBanner.height);					
+		}
+		</SCRIPT>
+            <A 
+            href="http://www.osde.com.ar/index.html#!osde-programa-de-beneficios.html" 
+            target=_blank><IMG id=banner border=0 
+            src="home_archivos/osde$179.jpg" width=200 height=130></A> <!--div id="divBannerTurismoSWF">
+			<script language="Javascript">
+				LoadActiveX('divBannerTurismoSWF', '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://intranet.osde/archivo/instructivos/swflash.cab#version=7,0,19,0" width="144" height="60"><param name=movie value="media/interturis_banner_puntos.swf"><param name=quality value=high><embed src="media/interturis_banner_puntos.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="144" height="60"></embed></object>');
+			</script>
+		</div--></TD></TR>
+        <TR>
+          <TD height=10></TD></TR>
+        <TR>
+          <TD align=center>
+            <SCRIPT language=javascript>
+			/*function _do_onLoad()
+			{
+				window.close();
+			}*/
+			//alert('NO ESTA');
+			
+		</SCRIPT>
+<!--a href='http://www.osde.com.ar/osde_binario/programa_de_beneficios_home.asp' target='_blanc'><img src="images/beneficios.jpg" border="0"></a--></TD></TR>
+        <TR>
+          <TD height=10></TD></TR>
+        <TR>
+          <TD align=center></TD></TR>
+        <TR>
+          <TD align=center></TD></TR>
+        <TR>
+          <TD align=center>
+            <TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=#f6f9e8 
+            border=0>
+              <TBODY>
+              <TR>
+                <TD class=titulo_destacado2 height=25 
+                background=home_archivos/fondo_eventos2.gif width=10><IMG 
+                  hspace=5 src="home_archivos/bull_buscador.gif"></TD>
+                <TD class=titulo_destacado2 height=25 
+                background=home_archivos/fondo_eventos2.gif width=200>Eventos 
+                  del día </TD></TR>
+              <TR>
+                <TD bgColor=#e0eaad height=20 colSpan=2 align=right><A 
+                  class=txt style="PADDING-RIGHT: 10px" 
+                  href="http://intranet.osde/IV3/calendario_eventos_home.asp?iContenidoSector=0"><B>Ver 
+                  más</B></A></TD></TR>
+              <TR bgColor=#f6f9e8>
+                <TD class=txt_eventos height=26 colSpan=2>&nbsp;Sin eventos 
+                  del día.</TD></TR></TBODY></TABLE></TD></TR>
+        <TR>
+          <TD height=2></TD></TR>
+        <TR>
+          <TD height="100%" align=center>
+            <TABLE class=fondo_blank height="100%" cellSpacing=0 cellPadding=0 
+            width="95%"><!--tr>
+		  	<td height="3" background="http://intranet.osde/IV3/images/top_blank.gif"></td>
+		  </tr-->
+              <TBODY>
+              <TR>
+                <TD 
+  height="100%"></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD height=5 colSpan=5></TD></TR>
+  <TR>
+    <TD height=14 colSpan=5>
+      <TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" 
+      background=home_archivos/fondo_bottom.gif>
+        <TBODY>
+        <TR>
+          <TD background=home_archivos/fondo_bottom1.gif width=442><IMG 
+            src="home_archivos/trapoint.gif" width=442 height=14></TD>
+          <TD background=home_archivos/fondo_bottom2.gif 
+        width="100%"></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD height=5 colSpan=2></TD></TR></TBODY></TABLE></BODY></HTML>

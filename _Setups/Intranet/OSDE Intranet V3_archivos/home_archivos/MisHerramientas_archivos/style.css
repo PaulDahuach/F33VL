@@ -1,0 +1,132 @@
+BODY {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial,Verdana; MARGIN-TOP: 0px; COLOR: #003c5a; MARGIN-LEFT: 0px; BACKGROUND-COLOR: #ffffff
+}
+P {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Arial,Verdana; COLOR: #003c5a
+}
+A:link {
+	TEXT-DECORATION: none; COLOR: #003399
+}
+A:visited {
+	TEXT-DECORATION: none; COLOR: #003399
+}
+A:hover {
+	TEXT-DECORATION: none; COLOR: #003399
+}
+A:active {
+	TEXT-DECORATION: none; COLOR: #003399
+}
+.tazul {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; COLOR: #003366; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tazul2 {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #003366; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tazulc {
+	FONT-SIZE: 8pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; COLOR: #003366; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tazul2c {
+	FONT-SIZE: 8pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #003366; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tblanco {
+	FONT-SIZE: 7pt; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; COLOR: #ffffff; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tnegro {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #0036a2; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tgris {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; COLOR: #666666; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.tazulTitulo {
+	FONT-SIZE: 13pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; COLOR: #003366; FONT-STYLE: normal; LINE-HEIGHT: normal
+}
+.Cursor {
+	FONT-SIZE: 8pt; CURSOR: hand; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #003366
+}
+.CursorOver {
+	FONT-SIZE: 8pt; CURSOR: hand; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #003366
+}
+.textbox {
+	FONT-SIZE: 12px; TEXT-DECORATION: none; BORDER-TOP: #afc4d5 1px solid; FONT-FAMILY: tahoma,sans-serif; BORDER-RIGHT: #104a7b 1px solid; BACKGROUND: #ffffff; BORDER-BOTTOM: #104a7b 1px solid; COLOR: #000066; BORDER-LEFT: #afc4d5 1px solid
+}
+.tBotonAzul {
+	FONT-SIZE: 12px; CURSOR: hand; TEXT-DECORATION: none; BORDER-TOP: #afc4d5 1px solid; FONT-FAMILY: tahoma,sans-serif; BORDER-RIGHT: #104a7b 1px solid; BACKGROUND: #d6e7ef; BORDER-BOTTOM: #104a7b 1px solid; COLOR: #000066; BORDER-LEFT: #afc4d5 1px solid
+}
+.tBotonGris {
+	FONT-SIZE: 12px; CURSOR: hand; TEXT-DECORATION: none; BORDER-TOP: #afc4d5 1px solid; FONT-FAMILY: tahoma,sans-serif; BORDER-RIGHT: #104a7b 1px solid; BACKGROUND: #d6e7ef; BORDER-BOTTOM: #104a7b 1px solid; COLOR: #000066; BORDER-LEFT: #afc4d5 1px solid
+}
+.titulo {
+	FONT-SIZE: 11px; TEXT-DECORATION: none; FONT-FAMILY: arial; FONT-WEIGHT: bold; COLOR: #003399; LETTER-SPACING: 0px
+}
+.textol {
+	FONT-SIZE: 11px; TEXT-DECORATION: none; FONT-FAMILY: arial; COLOR: #003399; LETTER-SPACING: 0px
+}
+.fondogris {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.fondogris2 {
+	BACKGROUND-COLOR: #d0d0d0
+}
+.fondoMarron {
+	BACKGROUND-COLOR: #d8d0a0
+}
+.fondoCeleste {
+	BACKGROUND-COLOR: #0097fb
+}
+#TablesAzules2 {
+	WIDTH: 95%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 0px; MARGIN: 3px; PADDING-RIGHT: 0px
+}
+#TablesAzules2 TD {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana,Arial; COLOR: #003c5a; BACKGROUND-COLOR: #e7f1f6
+}
+#TablesAzules {
+	WIDTH: 95%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 0px; MARGIN: 3px; PADDING-RIGHT: 0px
+}
+#TablesAzules TD {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana,Arial; COLOR: #003c5a; BACKGROUND-COLOR: #e7f1f6
+}
+#TablesTitulosAzules TD {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana,Arial; FONT-WEIGHT: bold; COLOR: #404040; BACKGROUND-COLOR: #b6cee7
+}
+#TablesPieAzules TD {
+	HEIGHT: 4px; BACKGROUND-COLOR: #77929f
+}
+#TablesGrises {
+	WIDTH: 99%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 0px; MARGIN: 3px; PADDING-RIGHT: 0px
+}
+#TablesGrises TD {
+	FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial; COLOR: #0036a2; BACKGROUND-COLOR: #f4f4f4
+}
+#TablesTitulosGrises TD {
+	TEXT-DECORATION: none; COLOR: #666666; BACKGROUND-COLOR: #e9e9e9
+}
+#TablesTitulosCeleste TD {
+	TEXT-DECORATION: none; COLOR: #333333; BACKGROUND-COLOR: #bee4f1
+}
+#TablesTitulosGrisesnb TD {
+	COLOR: #0040a0; BACKGROUND-COLOR: #d0d0d0
+}
+#TablesPieGrises TD {
+	HEIGHT: 4px; BACKGROUND-COLOR: #cccdcd
+}
+#TablesPieBlanco TD {
+	BACKGROUND-COLOR: #ffffff
+}
+#TablesColumnItalic {
+	FONT-STYLE: italic
+}
+.tdresaltadogris {
+	FONT-WEIGHT: bold; BACKGROUND-COLOR: #e9dec9
+}
+.item_menu_telefonos {
+	FONT-SIZE: 10px; TEXT-DECORATION: none; FONT-FAMILY: Verdana; WIDTH: 100%; FONT-WEIGHT: bold; COLOR: #187a9d; BACKGROUND-COLOR: #c9e2eb
+}
+.item_menu_telefonos_on {
+	FONT-SIZE: 10px; TEXT-DECORATION: none; FONT-FAMILY: Verdana; WIDTH: 100%; FONT-WEIGHT: bold; COLOR: #187a9d; BACKGROUND-COLOR: #c9e2eb
+}
+.item_menu_telefonos_on {
+	BACKGROUND-COLOR: #b3ddeb
+}
+.cursosCapacitacionCategorias {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana,Arial; FONT-WEIGHT: bold; COLOR: #404040; BACKGROUND-COLOR: #b6cee7
+}

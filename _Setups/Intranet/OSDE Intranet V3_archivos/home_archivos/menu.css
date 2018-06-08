@@ -1,0 +1,12 @@
+#nav {
+	LIST-STYLE-TYPE: none; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; PADDING-LEFT: 0px; MARGIN: 0px; PADDING-RIGHT: 0px
+}
+#nav #item {
+	FONT-SIZE: 10px; FONT-FAMILY: Arial; POSITION: relative; COLOR: #004a8b; DISPLAY: block; LETTER-SPACING: 1px; LINE-HEIGHT: 20px
+}
+#nav #item UL {
+	OVERFLOW: visible; WIDTH: 250px; BORDER-BOTTOM: #ffffff 1px solid; POSITION: absolute; LEFT: 174px; MARGIN: -5px; DISPLAY: none; BACKGROUND-COLOR: #ffffff
+}
+#nav #item UL LI {
+	BORDER-TOP: #ffffff 1px solid; BORDER-RIGHT: #ffffff 1px solid; WIDTH: 250px; POSITION: relative; FLOAT: left; PADDING-LEFT: 2px; BORDER-LEFT: #ffffff 1px solid; MARGIN: 0px; DISPLAY: block; LINE-HEIGHT: 20px; BACKGROUND-COLOR: #e4ebf5
+}

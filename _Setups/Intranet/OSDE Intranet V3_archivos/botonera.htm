@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0037)http://intranet.osde/IV3/botonera.asp -->
+<!-- include file = "../classes/logger.class.asp" --><HTML><HEAD><META 
+content="IE=5.0000" http-equiv="X-UA-Compatible">
+<TITLE>OSDE Intranet V2.1</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<STYLE type=text/css>BODY {
+	MARGIN: 0px
+}
+</STYLE>
+
+<SCRIPT>
+			var popUp = function( URL )	{
+					var day = new Date(),
+						id = day.getTime();
+
+					//TO-DO: Corregir esto, por el amor de Dios. ¡¡No usar eval()!!
+					eval("page" + id + " = window.open(URL, '" + id + "', 'toolbars=0, scrollbars=0, location=0, statusbars=0, menubars=0, resizable=0, width=10, height=10, left = 10000, top = 10000');");
+				},
+
+				salirIntra = function() {
+					parent.location.href = '/iv3/login.asp';
+				},
+
+				abrirAdmin = function( pagina, ventana, atributos ) {
+					var anchoVentana = screen.width - 30,
+						altoVentana = screen.height - 50;
+
+					if( atributos.length === 0 ) {
+						window.open(
+							pagina,
+							ventana,
+							'width=' + anchoVentana + ',height=' + altoVentana
+							+ ',top=10,left=10,toolbars=no,scrollbars=auto,resizable=yes'
+						);
+					} else {
+						window.open(
+							pagina,
+							ventana,
+							'width=' + anchoVentana + ',height=' + altoVentana
+							+ ',top=10,left=10,' + atributos
+						);
+					}
+				},
+
+				MM_swapImgRestore = function() {
+					//v3.0
+					var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+				},
+
+				MM_preloadImages = function() {
+					//v3.0
+					var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+					var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+					if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+				},
+
+				MM_findObj = function( n, d ) {
+					//v4.01
+					var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+					d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+					if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+					for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+					if(!x && d.getElementById) x=d.getElementById(n); return x;
+				},
+
+				MM_swapImage = function() {
+					//v3.0
+					var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+					if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+				},
+
+				volver = function() {
+					var irAHome;
+
+					try {
+						irAHome = (window.parent.frames['home'].location.href.indexOf('.php') !== -1);
+
+						if( irAHome ) {
+							window.parent.frames['home'].location.href = 'home.asp';
+						} else {
+							if( window.parent.document.getElementById('home').contentWindow.history.length > 1 ) {
+								window.parent.document.getElementById('home').contentWindow.history.back();
+							}
+						}
+					} catch( oException ) {
+						window.parent.frames['home'].location.href = 'home.asp';
+					}
+				},
+
+				showHideBotonVolver = function( bVisible ) {
+					var sHref;
+
+					try {
+						sHref = window.parent.frames['home'].location.href;
+					} catch( oException ) {
+						sHref = 'default.asp';
+					}
+
+					if( bVisible ) {
+						window.document.getElementById('btnVolverOn').style.display = "";
+						window.document.getElementById('btnVolverOn').style.visibility = "visible";
+						window.document.getElementById('btnVolverOff').style.display = "none";
+						window.document.getElementById('btnVolverOff').style.visibility = "hidden";
+						window.document.getElementById('btnSalir').style.display = "none";
+						window.document.getElementById('btnSalir').style.visibility = "hidden";
+					} else {
+
+						if( sHref.indexOf('/IV3/home.asp') === -1 || sHref.indexOf('/IV3/inicio_v4.asp') === -1 ) {
+							window.document.getElementById('btnSalir').style.display = "";
+							window.document.getElementById('btnSalir').style.visibility = "visible";
+							window.document.getElementById('btnVolverOff').style.display = "none";
+							window.document.getElementById('btnVolverOff').style.visibility = "hidden";
+						} else {
+							window.document.getElementById('btnVolverOff').style.display = "";
+							window.document.getElementById('btnVolverOff').style.visibility = "visible";
+							window.document.getElementById('btnSalir').style.display = "none";
+							window.document.getElementById('btnSalir').style.visibility = "hidden";
+						}
+						window.document.getElementById('btnVolverOn').style.display = "none";
+						window.document.getElementById('btnVolverOn').style.visibility = "hidden";
+					}
+				},
+
+				refreshVolver = function() {
+					var sHref,
+						mostrar;
+
+					try {
+						sHref = window.parent.frames['home'].location.href;
+
+						mostrar = true;
+						if( sHref.indexOf('/IV3/home.asp') !== -1 ) {
+							mostrar = false;
+						}
+						if( sHref.indexOf('/IV3/inicio_v4.asp') !== -1 ) {
+							mostrar = false;
+						}
+						if( sHref.indexOf('/RRHH_04/RRHH.htm') !== -1 ) {
+							mostrar = false;
+						}
+
+						showHideBotonVolver( mostrar );
+						startTimeoutRefreshVolver();
+					} catch( oException ) {
+						showHideBotonVolver( true );
+						startTimeoutRefreshVolver();
+					}
+				},
+
+				startTimeoutRefreshVolver = function() {
+					setTimeout( 'refreshVolver();', 500 );
+				};
+		</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 11.00.10570.1001"></HEAD>
+<BODY 
+onload="MM_preloadImages('images/botonera/noticias_b.jpg'); startTimeoutRefreshVolver();">
+<TABLE cellSpacing=0 cellPadding=0 width="100%" 
+background=botonera_archivos/fondo.gif border=0>
+  <TBODY>
+  <TR>
+    <TD width=160><A href="http://intranet.osde/IV3/home.asp" target=home><IMG 
+      border=0 src="botonera_archivos/logo_2015.gif" width=249 height=79></A> 
+</TD>
+    <TD>
+      <TABLE height=79 cellSpacing=0 cellPadding=0 width="100%" 
+      background=botonera_archivos/fondo_linea.gif border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=50><A 
+            onclick="abrirAdmin('../admin/index.html','ADMIN','');" 
+            onmouseover="MM_swapImage('imgAbm','','http://intranet.osde/IV3/images/botonera/res1024/abm_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/botonera.asp#blank"><IMG border=0 
+            name=imgAbm src="botonera_archivos/abm.gif" width=50 height=79></A> 
+          </TD>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=52><A 
+            onmouseover="MM_swapImage('imgNoticias','','http://intranet.osde/IV3/images/botonera/res1024/noticias_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/hit.asp?codMod=NOTI&amp;pagina=%2E%2E%2Fnoticia%2Fnoticias%2Easp%3Fhome%3Dtrue%26tapa%3Dtrue" 
+            target=home><IMG border=0 name=imgNoticias 
+            src="botonera_archivos/noticias.gif" width=52 height=79></A> </TD>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=65><A 
+            onmouseover="MM_swapImage('imgTelefonos','','http://intranet.osde/IV3/images/botonera/res1024/telefonos_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/hit.asp?codMod=TELF&amp;pagina=../clasitel/templategris-home.asp?nroidsitio=199" 
+            target=home><IMG border=0 name=imgTelefonos 
+            src="botonera_archivos/telefonos.gif" width=65 height=79> </A></TD>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=83><A 
+            onmouseover="MM_swapImage('imgCaps','','http://intranet.osde/IV3/images/botonera/res1024/capsFiliales_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/hit.asp?m=15363" target=home><IMG 
+            border=0 name=imgCaps src="botonera_archivos/capsFiliales.gif" 
+            width=83 height=79> </A></TD>
+          <TD>&nbsp; 
+          <TD vAlign=top width=87><A 
+            onmouseover="MM_swapImage('imgChat','','http://intranet.osde/IV3/images/botonera/res1024/chatsForos_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/hit.asp?codMod=CHYF&amp;pagina=../chatsforos/visualizadornuevo.asp" 
+            target=home><IMG border=0 name=imgChat 
+            src="botonera_archivos/chatsForos.gif" width=87 height=79></A></TD>
+          <TD>&nbsp; 
+          <TD vAlign=top width=57><A 
+            onmouseover="MM_swapImage('imgNuevo','','http://intranet.osde/IV3/images/botonera/res1024/loNuevo_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/hit.asp?codMod=NOVE&amp;pagina=../novedades/listadonuevo.asp" 
+            target=home><IMG border=0 name=imgNuevo 
+            src="botonera_archivos/loNuevo.gif" width=57 height=79> </A></TD>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=72><A 
+            onmouseover="MM_swapImage('imgMesaAyuda','','http://intranet.osde/IV3/images/botonera/res1024/mesa_ayuda_on.gif',1)" 
+            onmouseout=MM_swapImgRestore() 
+            href="http://intranet.osde/IV3/hit.asp?m=15377" target=home><IMG 
+            border=0 name=imgMesaAyuda src="botonera_archivos/mesa_ayuda.gif" 
+            height=79> </A></TD>
+          <TD>&nbsp;</TD>
+          <TD vAlign=top width=39><A 
+            href="http://intranet.osde/IV3/indice_buscador2.asp" 
+            target=home><IMG border=0 name=imgIndice 
+            src="botonera_archivos/indice.gif" width=39 height=79> </A></TD>
+          <TD id=btnVolverOn style="DISPLAY: none; VISIBILITY: hidden" 
+          vAlign=top width=39><A href="javascript:volver();"><IMG border=0 
+            name=imgIndice src="botonera_archivos/volver.gif" width=39 
+            height=79></A> </TD>
+          <TD id=btnSalir style="DISPLAY: none; VISIBILITY: hidden" vAlign=top 
+          width=39><A href="javascript:salirIntra();"><IMG border=0 
+            name=imgIndice src="botonera_archivos/salir.gif" width=39 
+            height=79></A> </TD>
+          <TD id=btnVolverOff style="VISIBILITY: visible" vAlign=top 
+          width=39>&nbsp;</TD></TR></TBODY></TABLE></TD>
+    <TD width=5><IMG src="botonera_archivos/finDerecha.gif" width=5 height=79> 
+    </TD></TR></TBODY></TABLE></BODY></HTML>
